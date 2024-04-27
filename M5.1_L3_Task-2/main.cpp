@@ -59,6 +59,17 @@ public:
 		deallocate_memory();
 	}
 
+	// Конструктор копирования =
+	smart_array(const smart_array& other) {
+		size = other.size;
+		capacity = other.capacity;
+		data = new int[capacity];
+		for (int i = 0;i < size; ++i) {
+			data[i] = other.data[i];
+		}
+	}
+
+
 	// Фун-я добавления элемента
 	void add_element(int element)
 	{
@@ -103,23 +114,7 @@ public:
 		std::cout << std::endl;
 	}
 
-	// Оператор присваивания =
-	smart_array& operator=(const smart_array& other) {
-		if (this != &other) {
-			// освобождаем память, на которую ссылается this
-			deallocate_memory();
-
-			// Копируем элементы массива
-			size = other.size;
-			capacity = other.capacity;
-			data = new int[capacity];
-			for (int i = 0; i < size; ++i) {
-				data[i] = other.data[i];
-			}
-
-		}
-		return *this;
-	}
+	
 };
 
 int main() {
@@ -127,7 +122,7 @@ int main() {
 	setlocale(LC_ALL, "ru");
 
 	try {
-		smart_array arr(5);
+		/*smart_array arr(5);
 		arr.add_element(1);
 		arr.add_element(4);
 		arr.add_element(155);
@@ -139,8 +134,17 @@ int main() {
 		
 
 		arr = new_array;
+		*/
+		smart_array arr1(5);
+		arr1.add_element(1);
+		arr1.add_element(2);
+		arr1.add_element(3);
 
-		arr.print_array();
+
+		smart_array arr2(arr1);
+
+		arr1.print_array();
+		arr2.print_array();
 
 	}
 	catch (const std::exception& ex) {
